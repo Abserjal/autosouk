@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoSouk Maroc</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f4f4f4;
+}
+
+header{
+    background:#111;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    margin-top:20px;
+}
+
+.filters{
+    margin-bottom:20px;
+}
+
+input, select, button{
+    padding:8px;
+    margin:5px;
+}
+
+button{
+    background:#111;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#444;
+}
+
+.cars{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🚗 AutoSouk Maroc</h1>
+<p>Lqina tomobil li kat7lm biha b taman m3qoul</p>
+</header>
+
+<div class="container">
+
+<div class="filters">
+<input type="text" id="search" placeholder="Search marque...">
+<select id="priceFilter">
+<option value="all">All Prices</option>
+<option value="50000">Moins de 50,000 DH</option>
+<option value="100000">Moins de 100,000 DH</option>
+</select>
+<button onclick="filterCars()">Filter</button>
+</div>
+
+<div class="cars" id="carList"></div>
+
+</div>
+
+<script>
+const cars = [
+{
+    marque:"Toyota",
+    model:"Corolla",
+    year:2018,
+    price:90000,
+    image:"https://images.unsplash.com/photo-1619767886558-efdc259cde1a"
+},
+{
+    marque:"Dacia",
+    model:"Logan",
+    year:2020,
+    price:70000,
+    image:"https://images.unsplash.com/photo-1583267746897-2cf415887172"
+},
+{
+    marque:"Volkswagen",
+    model:"Golf 7",
+    year:2017,
+    price:110000,
+    image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+}
+];
+
+function displayCars(filteredCars){
+    const carList = document.getElementById("carList");
+    carList.innerHTML="";
+    filteredCars.forEach(car=>{
+        carList.innerHTML+=`
+        <div class="card">
+            <img src="${car.image}" alt="">
+            <h3>${car.marque} ${car.model}</h3>
+            <p>Année: ${car.year}</p>
+            <p>Prix: ${car.price} DH</p>
+        </div>
+        `;
+    });
+}
+
+function filterCars(){
+    const search = document.getElementById("search").value.toLowerCase();
+    const priceFilter = document.getElementById("priceFilter").value;
+
+    let filtered = cars.filter(car=>{
+        return car.marque.toLowerCase().includes(search);
+    });
+
+    if(priceFilter !== "all"){
+        filtered = filtered.filter(car=> car.price <= priceFilter);
+    }
+
+    displayCars(filtered);
+}
+
+displayCars(cars);
+</script>
+
+</body>
+</html>
