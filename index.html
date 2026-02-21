@@ -3,66 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoSouk Maroc</title>
+<title>AutoSouk Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body{
-    font-family: Arial, sans-serif;
+*{
     margin:0;
-    background:#f4f4f4;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:#f5f7fa;
 }
 
 header{
     background:#111;
     color:white;
-    padding:20px;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h1{
+    font-weight:700;
+}
+
+header a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1503376780353-7e6692767b70');
+    background-size:cover;
+    background-position:center;
+    color:white;
     text-align:center;
+    padding:100px 20px;
+}
+
+.hero h2{
+    font-size:40px;
+    margin-bottom:15px;
 }
 
 .container{
     width:90%;
-    margin:auto;
-    margin-top:20px;
+    margin:40px auto;
 }
 
 .filters{
-    margin-bottom:20px;
+    text-align:center;
+    margin-bottom:30px;
 }
 
-input, select, button{
-    padding:8px;
+input, select{
+    padding:10px;
     margin:5px;
+    border-radius:5px;
+    border:1px solid #ccc;
 }
 
 button{
+    padding:10px 20px;
     background:#111;
     color:white;
     border:none;
+    border-radius:5px;
     cursor:pointer;
 }
 
 button:hover{
-    background:#444;
+    background:#333;
 }
 
 .cars{
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-    gap:20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap:25px;
 }
 
 .card{
     background:white;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
 }
 
 .card img{
     width:100%;
-    height:150px;
+    height:200px;
     object-fit:cover;
-    border-radius:8px;
+}
+
+.card-content{
+    padding:15px;
+}
+
+.price{
+    color:#e63946;
+    font-weight:700;
+    font-size:18px;
+}
+
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
 }
 </style>
 </head>
@@ -70,9 +129,18 @@ button:hover{
 <body>
 
 <header>
-<h1>🚗 AutoSouk Maroc</h1>
-<p>Lqina tomobil li kat7lm biha b taman m3qoul</p>
+<h1>🚗 AutoSouk Premium</h1>
+<div>
+<a href="#">Accueil</a>
+<a href="#">Voitures</a>
+<a href="#">Contact</a>
+</div>
 </header>
+
+<section class="hero">
+<h2>Trouvez la voiture de vos rêves</h2>
+<p>Meilleures offres au Maroc</p>
+</section>
 
 <div class="container">
 
@@ -80,51 +148,42 @@ button:hover{
 <input type="text" id="search" placeholder="Search marque...">
 <select id="priceFilter">
 <option value="all">All Prices</option>
-<option value="50000">Moins de 50,000 DH</option>
 <option value="100000">Moins de 100,000 DH</option>
+<option value="200000">Moins de 200,000 DH</option>
 </select>
-<button onclick="filterCars()">Filter</button>
+<button onclick="filterCars()">Filtrer</button>
 </div>
 
 <div class="cars" id="carList"></div>
 
 </div>
 
+<footer>
+© 2026 AutoSouk Premium - Tous droits réservés
+</footer>
+
 <script>
 const cars = [
-{
-    marque:"Toyota",
-    model:"Corolla",
-    year:2018,
-    price:90000,
-    image:"https://images.unsplash.com/photo-1619767886558-efdc259cde1a"
-},
-{
-    marque:"Dacia",
-    model:"Logan",
-    year:2020,
-    price:70000,
-    image:"https://images.unsplash.com/photo-1583267746897-2cf415887172"
-},
-{
-    marque:"Volkswagen",
-    model:"Golf 7",
-    year:2017,
-    price:110000,
-    image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"
-}
+{marque:"Toyota", model:"Corolla", year:2021, price:140000, image:"https://images.unsplash.com/photo-1619767886558-efdc259cde1a"},
+{marque:"Dacia", model:"Logan", year:2020, price:90000, image:"https://images.unsplash.com/photo-1583267746897-2cf415887172"},
+{marque:"Volkswagen", model:"Golf 8", year:2022, price:230000, image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"},
+{marque:"Mercedes", model:"C220", year:2019, price:320000, image:"https://images.unsplash.com/photo-1549924231-f129b911e442"},
+{marque:"BMW", model:"Serie 3", year:2021, price:350000, image:"https://images.unsplash.com/photo-1555215695-3004980ad54c"},
+{marque:"Hyundai", model:"Tucson", year:2023, price:260000, image:"https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6"}
 ];
 
-function displayCars(filteredCars){
+function displayCars(list){
     const carList = document.getElementById("carList");
     carList.innerHTML="";
-    filteredCars.forEach(car=>{
+    list.forEach(car=>{
         carList.innerHTML+=`
         <div class="card">
-            <img src="${car.image}" alt="">
-            <h3>${car.marque} ${car.model}</h3>
-            <p>Année: ${car.year}</p>
-            <p>Prix: ${car.price} DH</p>
+            <img src="${car.image}">
+            <div class="card-content">
+                <h3>${car.marque} ${car.model}</h3>
+                <p>Année: ${car.year}</p>
+                <p class="price">${car.price} DH</p>
+            </div>
         </div>
         `;
     });
@@ -134,12 +193,12 @@ function filterCars(){
     const search = document.getElementById("search").value.toLowerCase();
     const priceFilter = document.getElementById("priceFilter").value;
 
-    let filtered = cars.filter(car=>{
-        return car.marque.toLowerCase().includes(search);
-    });
+    let filtered = cars.filter(car =>
+        car.marque.toLowerCase().includes(search)
+    );
 
     if(priceFilter !== "all"){
-        filtered = filtered.filter(car=> car.price <= priceFilter);
+        filtered = filtered.filter(car => car.price <= priceFilter);
     }
 
     displayCars(filtered);
@@ -149,5 +208,4 @@ displayCars(cars);
 </script>
 
 </body>
-
 </html>
